@@ -24,12 +24,13 @@ const db =getFirestore();
 
 bot.onText(/\/add (.+)/, (msg, match) => {
     
-  
+    console.log(msg.chat);
     const chatId = msg.chat.id;
     const task=match[1];
     const resp =(task)? '"'+String(task)+'"'+" added to todo list":'Enter the task properly'; 
     
-    db.collection('Todo').add({
+    
+    db.collection(String(chatId)).add({
         name:task,
         time:getCurrentTime()
     });
@@ -42,7 +43,7 @@ bot.onText(/\/remove (.+)/,(msg,match)=>{
 
     if (taskToDelete) {
         
-        db.collection('Todo')
+        db.collection(String(chatId))
             .where('name', '==', taskToDelete)
             .get()
             .then(snapshot => {
@@ -75,7 +76,7 @@ bot.onText(/\/view/, (msg) => {
     const chatId = msg.chat.id;
 
     var table_message = "Task name" + "    " + "created Time\n";
-    db.collection('Todo').get().then((docs) => {
+    db.collection(String(chatId)).get().then((docs) => {
         if (docs.empty) {
             bot.sendMessage(chatId, "No tasks found");
         } else {
