@@ -34,5 +34,5 @@ To start using the Todo Telegram Bot:
    /add taskname --> to add a new task
    /remove taskname --> to remove a task
    /view --> to view tasks
-  ```
+
 7. Begin managing your tasks by sending messages with the appropriate commands to the Telegram bot!
